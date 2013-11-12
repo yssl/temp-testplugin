@@ -10,11 +10,48 @@ set cpo&vim
  
 """""""""""""""""""""""""""""""""""""""""""""
 " my code
-function! s:print_hello()
-	echo 'hello1'
-	"echo 'hello2'
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" test print functions
+"""""""""""""""""""""""""""""""""""""""""""""
+function! PrintCurrentWindow()
+	let winnr = winnr()
+	let bufnr = winbufnr(winnr)
+	let bufname = bufname(bufnr)
+	let buftype = getbufvar(bufnr, '&buftype')
+	echo 'winnr: '.winnr
+	echo 'bufnr: '.bufnr
+	echo 'bufname: '.bufname
+	echo 'buftype: '.buftype
 endfunction
-command! TestpluginHello call s:print_hello()
+
+function! PrintWindows()
+	for i in range(1, winnr('$'))
+		echo 'bufname(winbufnr(i_winnr)): '.bufname(winbufnr(i))
+	endfor
+endfunction
+
+function! PyPrintWindows()
+python << EOF
+import vim
+for w in vim.windows:
+	print 'window.buffer.name:', w.buffer.name
+EOF
+endfunction
+
+function! PrintBuffers()
+	for i in range(1, bufnr('$'))
+		echo 'bufname(i_bufnr): '.bufname(i)
+	endfor
+endfunction
+
+function! PyPrintBuffers()
+python << EOF
+import vim
+for b in vim.buffers:
+	print 'buffer.name:', b.name
+EOF
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""
 " template code
