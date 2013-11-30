@@ -20,7 +20,11 @@ function! PrintCurrentWindow()
 	let bufname = bufname(bufnr)
 	let buftype = getbufvar(bufnr, '&buftype')
 	echo 'winnr: '.winnr
+	echo 'winnr() '.winnr()
+	echo 'bufwinnr("%") '.bufwinnr('%')
 	echo 'bufnr: '.bufnr
+	echo 'bufnr("%") '.bufnr('%')
+	echo 'winbufnr("%") '.winbufnr('%')
 	echo 'bufname: '.bufname
 	echo 'buftype: '.buftype
 endfunction
