@@ -57,6 +57,32 @@ for b in vim.buffers:
 EOF
 endfunction
 
+" from http://vim.wikia.com/wiki/User_input_from_a_script
+function! Demo()
+  let curline = getline('.')
+  call inputsave()
+  let name = input('Enter name: ')
+  call inputrestore()
+  call setline('.', curline . ' ' . name)
+endfunction
+
+function! DefPython()
+python << PYEND
+import vim
+def python_input(message = 'input'):
+  vim.command('call inputsave()')
+  vim.command("let user_input = input('" + message + ": ')")
+  vim.command('call inputrestore()')
+  return vim.eval('user_input')
+
+def demo():
+  curline = vim.current.line
+  name = python_input('Enter name')
+  vim.current.line = curline + ' ' + name
+PYEND
+endfunction
+call DefPython()
+
 """""""""""""""""""""""""""""""""""""""""""""
 " template code
 let &cpo= s:keepcpo
