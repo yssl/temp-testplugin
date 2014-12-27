@@ -30,6 +30,7 @@ function! PrintCurrentWindow()
 endfunction
 
 function! PrintWindows()
+	echo 'number of windows: '.winnr('$')
 	for i in range(1, winnr('$'))
 		echo 'bufname(winbufnr(i_winnr)): '.bufname(winbufnr(i))
 	endfor
